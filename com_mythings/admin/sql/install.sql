@@ -1,7 +1,6 @@
 #
 # Tabelle `#__mythings`
-# Kapitel 3
-# Vorbereitung und Erstinstallation
+# Grundversion 
 #
 
 DROP TABLE IF EXISTS `#__mythings`;

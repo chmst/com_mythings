@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>com_mythings</name>
+	<creationDate>Juli 2012</creationDate>
+	<copyright>(c)2012 chmst.de - All rights reserved</copyright>
+	<authorUrl>chmst.de</authorUrl>
+	<license>GNU/GPL</license>
+	<version>0.2.0</version>
+	<description>MyThings - Beispielkomponente Mythings in Joomla 2.5</description>
+
+	<!-- SQL-Skript zum Anlegen der Komponenten-Tabelle(n) und den Beispieldaten -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.sql</file>
+		</sql>
+	</install>
+
+	<!-- SQL-Skript zum Löschen der Komponenten-Tabelle(n) -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.sql</file>
+		</sql>
+	</uninstall>
+
+	<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
+	<files folder="site">
+		<filename>mythings.php</filename>
+		<filename>controller.php</filename>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+
+
+	<administration>
+		<!-- Einträge im Admin-Menü -->
+		<menu img="class:component">COM_MYTHINGS</menu>
+
+
+		<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
+		<files folder="admin">
+			<filename>mythings.php</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+		<!-- Sprachdateien für den Admin -->
+		<languages folder="admin">
+			<language tag="de-DE">language/de-DE/de-DE.com_mythings.ini</language>
+			<language tag="de-DE">language/de-DE/de-DE.com_mythings.sys.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_mythings.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_mythings.sys.ini</language>
+		</languages>
+	</administration>
+
+</extension>
