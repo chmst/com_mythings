@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<form>
+
+
+<fieldset name="mythings-lend">
+    <field
+        name="id"
+        type="hidden"
+        default="0" />
+    <field
+        name="lent_by_id"
+        type="hidden"
+        default="0" />
+    <field
+        name="lent_from"
+        type="calendar"
+        label="COM_MYTHINGS_LEND_FROM_LABEL"
+        description="COM_MYTHINGS_LEND_FROM_DESC"
+        format="%Y-%m-%d %H:%M:%S"
+        size="20" />
+    <field
+        name="lent_to"
+        type="calendar"
+        label="COM_MYTHINGS_LEND_TO_LABEL"
+        description="COM_MYTHINGS_LEND_TO_DESC"
+        format="%Y-%m-%d %H:%M:%S"
+        size="20" />
+
+</fieldset>
+
+
+</form>

@@ -1,6 +1,7 @@
 #
 # Tabelle `#__mythings`
-# Kapitel 20
+# Kapitel 21
+# Stand ab Zugrifsrechte-ACL 
 #
 
 DROP TABLE IF EXISTS `#__mythings`;

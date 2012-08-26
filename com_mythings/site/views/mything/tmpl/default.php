@@ -73,17 +73,29 @@ $nullDate = JFactory::getDbo()->getNullDate();
 <?php endif; ?>
 </table>
 
-<h1>
-	<?php
-	/**
-	 * Das Ausleihdatum wird gegen das Null-Datum der Datenbank verglichen.
-	 */
-	if ($item->lent_from ==  $nullDate) {
-		echo JText::_('COM_MYTHINGS_AVAILABLE');
+<p>
+<?php
+	if ($item->lent_from == $nullDate)  {
+	if ($user->authorise('mything.lend', 'com_mythings.mything.' . (int) $item->id) ) {?>
+		<form id="lend" action="<?php echo JRoute::_('index.php?option=com_mythings'); ?>" method="post" >
+			<fieldset>
+				<dl>
+				<?php foreach ($this->form->getFieldset('mythings-lend') as $field) : ?>
+					<dt><?php echo $field->label; ?></dt>
+					<dd><?php echo $field->input; ?></dd>
+				<?php endforeach; ?>
+				</dl>
+			</fieldset>
+
+			<button  type="submit"><?php echo JText::_('COM_MYTHINGS_BUTTON_LEND'); ?></button>
+			<input type="hidden" name="task" value="mything.lend" />
+			<?php echo JHtml::_( 'form.token' ); ?>
+		</form>
+	 <?php  }
 	} else {
-		echo JText::_('COM_MYTHINGS_NOT_AVAILABLE');
-	}?>
-</h1>
+		echo JText::_('COM_MYTHINGS_AVAILABLE');
+	} ?>
+</p>
 <?php if ($item->img) { ?>
 <p><img src="<?php echo $this->escape($item->img); ?>" /></p>
 <?php } ?>
