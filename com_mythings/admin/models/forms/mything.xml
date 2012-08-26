@@ -1,86 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <form>
-	<fieldset>
-		<field
-			name="id"
-			type="text"
-			default="0" />
-			
-		<field
-			name="title"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_TITLE_LABEL"
-			description="COM_MYTHINGS_TITLE_DESC"
-			size="100"
-			required="true" />
 
-		<field
-			name="owner"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_OWNER_LABEL"
-			description="COM_MYTHINGS_OWNER_DESC"
-			size="40"
-			required="true" />
+<fieldset name="mythings-data">
+    <field
+        name="id"
+        type="hidden"
+        default="0" />
 
-		<field
-			name="category"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_CAT_LABEL"
-			description="COM_MYTHINGS_CAT_DESC"
-			size="40"
-			required="true" />
-		
-		<field
-			name="state"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_STATE_LABEL"
-			description="COM_MYTHINGS_STATE_DESC"
-			size="20" />
-			
-		<field
-			name="value"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_VALUE_LABEL"
-			description="COM_MYTHINGS_VALUE_DESC"
-			size="20" />
-						
-		<field
-			name="weight"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_WEIGHT_LABEL"
-			description="COM_MYTHINGS_WEIGHT_DESC"
-			size="20" />
-			
-		<field
-			name="description"
-			type="textarea"
-			class="inputbox"
-			label="COM_MYTHINGS_TEXT_LABEL"
-			description="COM_MYTHINGS_TEXT_DESC"
-			rows="6"
-			cols="100" />	
-		
-		<field
-			name="lent"
-			type="text" 
-			label="COM_MYTHINGS_LENT_LABEL"
-			description="COM_MYTHINGS_LENT_DESC"
-			class="inputbox" 
-			size="20" />
+    <field
+        name="title"
+        type="text"
+        class="inputbox"
+        label="COM_MYTHINGS_TITLE_LABEL"
+        description="COM_MYTHINGS_TITLE_DESC"
+        required="true" />
 
-		<field
-			name="lent_by"
-			type="text"
-			class="inputbox"
-			label="COM_MYTHINGS_LENTBY_LABEL"
-			description="COM_MYTHINGS_LENTBY_DESC"
-			size="20" />
-	</fieldset>
+    <field name="owner_id"
+        type="user"
+        label="COM_MYTHINGS_OWNER_LABEL"
+        description="COM_MYTHINGS_OWNER_DESC" />
+
+    <field
+        name="category_id"
+        type="category"
+        extension="com_mythings"
+        class="inputbox"
+        label="COM_MYTHINGS_CAT_LABEL"
+        description="COM_MYTHINGS_CAT_DESC" />
+
+    <field
+        name="state"
+        type="radio"
+        label="COM_MYTHINGS_STATE_LABEL"
+		description="COM_MYTHINGS_STATE_DESC"
+        default="0" class="inputbox" >
+        <option value="0">COM_MYTHINGS_STATE_NEW</option>
+        <option value="1">COM_MYTHINGS_STATE_GOOD</option>
+        <option value="2">COM_MYTHINGS_STATE_USED</option>
+        <option value="3">COM_MYTHINGS_STATE_SCRAPE</option>
+    </field>
+
+    <field
+        name="value"
+        type="text"
+        class="inputbox"
+        label="COM_MYTHINGS_VALUE_LABEL"
+        description="COM_MYTHINGS_VALUE_DESC"
+        size="20" />
+
+    <field
+        name="weight"
+        type="text"
+        label="COM_MYTHINGS_WEIGHT_LABEL"
+        description="COM_MYTHINGS_WEIGHT_DESC"
+        size="20" />
+
+    <field
+        name="img"
+        type="media"
+        label="COM_MYTHINGS_IMG_LABEL"
+        size="20" />
+
+    <field
+        name="description"
+        type="editor"
+        class="inputbox"
+        label="COM_MYTHINGS_TEXT_LABEL"
+        description="COM_MYTHINGS_TEXT_DESC"
+        filter="JComponentHelper::filterText"
+        buttons="false"
+        hide="readmore,pagebreak"
+        />
+</fieldset>
+
+<fieldset name="mythings-lent">
+    <field
+        name="lent_from"
+        type="calendar"
+        label="COM_MYTHINGS_LENT_FROM_LABEL"
+        description="COM_MYTHINGS_LENT_FROM_DESC"
+        format="%Y-%m-%d %H:%M:%S"
+        size="20" />
+
+    <field
+        name="lent_to"
+        type="calendar"
+        label="COM_MYTHINGS_LENT_TO_LABEL"
+        description="COM_MYTHINGS_LENT_TO_DESC"
+        format="%Y-%m-%d %H:%M:%S"
+        size="20" />
+
+    <field
+        name="lent_by_id"
+        type="user"
+        label="COM_MYTHINGS_LENTBY_LABEL"
+        description="COM_MYTHINGS_LENTBY_DESC"
+        size="20" />
+</fieldset>
+
 </form>

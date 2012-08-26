@@ -41,7 +41,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT_BY', 'lent_by', $listDirn, $listOrder); ?>
 	</th>
 	<th style="background: #ccc;">
-		<?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT', 'lent', $listDirn, $listOrder); ?>
+		<?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT', 'lent_from', $listDirn, $listOrder); ?>
 	</th>
 
 </tr>
@@ -63,20 +63,19 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<?php echo $this->escape($item->lent_by); ?>
 	</td>
 	<td><?php
-    if ($item->lent != $nullDate) {
-        echo JHtml::_('date', $this->escape($item->lent), 'd.m.Y');
-    } ?>
+	if ($item->lent_from != $nullDate) {
+		echo JHtml::_('date', $this->escape($item->lent_from), 'd.m.Y');
+	} ?>
   </td>
 
 </tr>
 <?php endforeach; ?>
 </table>
 
+
 <form action="<?php echo JRoute::_('index.php?option=com_mythings&view=mythings'); ?>"
-	method="post" name="adminForm" id="adminForm">
-
+      method="post" name="adminForm" id="adminForm">
 <?php echo $this->pagination->getListFooter(); ?>
-
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="option" value="com_mythings" />
 <input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />

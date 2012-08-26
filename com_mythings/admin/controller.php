@@ -12,6 +12,9 @@
 defined('_JEXEC') or die;
 JLoader::import('joomla.application.component.controller');
 
+/* helperklasse dem JLoader melden, bei Bedarf wird sie schell geladen */
+JLoader::register('MyThingsHelper', JPATH_COMPONENT . '/helpers/mythings.php');
+
 /**
  * Erweiterung der Basisklasse JController
  */
@@ -35,6 +38,10 @@ class MyThingsController extends JController
 		$view   = $input->get('view', $this->default_view);
 		$layout = $input->get('layout', 'default');
 		$id     = $input->get('id');
+
+		// Bevor die View aufgebaut wird, erstellt die Helperklasse
+		// ein Untermenü zum Wechseln zwischen Categories und Things
+		MyThingsHelper::addSubmenu($view);
 
 		if ($view == 'mything' && $layout == 'edit')
 		{

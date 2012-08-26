@@ -26,7 +26,7 @@ class MyThingsModelMyThings extends JModelList
   {
     if (empty($config['filter_fields'])) {
       $config['filter_fields'] = array(
-             'category','title','lent_by','lent');
+             'category','title','lent_by','lent_from');
     }
     parent::__construct($config);
   }
@@ -68,7 +68,15 @@ class MyThingsModelMyThings extends JModelList
     $query->from('#__mythings');
 
     /* Alle Tabellenspalte anfordern `*/
-    $query->select('*');
+    $query->select('a.*');
+
+    /* Kategorien aus '#__categories als left join */
+    $query->select('c.title AS category');
+    $query->join('LEFT', '#__categories AS c ON c.id = a.category_id');
+
+    /* Benutzernamen zu  lent_by_id aus #__users ermitteln, */
+    $query->select('v.username AS lent_by');
+    $query->join('LEFT', '#__users AS v ON v.id = a.lent_by_id');
 
 	/* Abfrage um die Sortierangaben ergänzen */
 	$sort  = $this->getState('list.ordering');

@@ -2,14 +2,14 @@
 /**
  * Joomla! 2.5 - Erweiterungen programmieren
  *
- * Detail-Layout fÃ¼r das Frontend. Ausgabe als HTML-Tabelle.
+ * Detail-Layout für das Frontend. Ausgabe als HTML-Tabelle.
  *
  * @package    Mythings
  * @subpackage Frontend
  * @author     chmst.de, webmechanic.biz
  * @license	   GNU/GPLv2 or later
  *
- * @todo  HTML-Ausgabe mit CSS anhÃ¼bschen
+ * @todo  HTML-Ausgabe mit CSS anhübschen
  */
 defined('_JEXEC') or die;
 
@@ -29,7 +29,29 @@ $nullDate = JFactory::getDbo()->getNullDate();
 <table>
     <tr>
         <td><?php echo JText::_('COM_MYTHINGS_STATE'); ?></td>
-        <td><?php echo $this->escape($item->state); ?></td>
+        <td><?php 
+		switch ($item->state) {
+	    case '0':
+	    	echo JText::_('COM_MYTHINGS_STATE_NEW');
+	    break;
+	
+	    case '1':
+	    	echo JText::_('COM_MYTHINGS_STATE_GOOD');
+	    break;
+	
+	    case '2':
+	    	echo JText::_('COM_MYTHINGS_STATE_USED');
+	    break;
+	
+	    case '3':
+	    	echo JText::_('COM_MYTHINGS_STATE_SCRAPE');
+	    break;
+	
+	    default:
+	    	echo JText::_('COM_MYTHINGS_STATE_UNKOWN');
+	    break;
+	}
+	?></td>
     </tr>
     <tr>
         <td><?php echo JText::_('COM_MYTHINGS_VALUE'); ?></td>
@@ -40,6 +62,7 @@ $nullDate = JFactory::getDbo()->getNullDate();
         <td><?php echo $this->escape($item->weight); ?></td>
     </tr>
 </table>
+
 <h1>
 	<?php
 	/**
@@ -51,4 +74,6 @@ $nullDate = JFactory::getDbo()->getNullDate();
 		echo JText::_('COM_MYTHINGS_NOT_AVAILABLE');
 	}?>
 </h1>
-
+<?php if ($item->img) { ?>
+<p><img src="<?php echo $this->escape($item->img); ?>" /></p>
+<?php } ?>

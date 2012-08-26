@@ -48,8 +48,14 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 			</th>
 			<th><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_TITLE', 'title', $listDirn, $listOrder); ?></th>
 			<th width="20%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_OWNER', 'owner', $listDirn, $listOrder); ?></th>
-			<th width="20%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_CAT', 'category', $listDirn, $listOrder); ?></th>
-			<th width="10%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT', 'lent', $listDirn, $listOrder); ?></th>
+			<th width="20%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_CAT', 'category', $listDirn, $listOrder); ?>
+				<br />
+				<select name="filter_category_id" class="inputbox" onchange="this.form.submit()">
+					<option value=""><?php echo JText::_('JOPTION_SELECT_CATEGORY');?></option>
+					<?php echo JHtml::_('select.options', JHtml::_('category.options', 'com_mythings'), 'value', 'text', $this->state->get('filter.category_id'));?>
+				</select>
+			</th>
+			<th width="10%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT', 'lent_from', $listDirn, $listOrder); ?></th>
 			<th width="10%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_LENT_BY', 'lent_by', $listDirn, $listOrder); ?></th>
 			<th width="10%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_ID', 'id', $listDirn, $listOrder); ?></th>
 		</tr>
@@ -62,9 +68,7 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 		<tbody>
 	<?php foreach ($this->items as $i => $item) : ?>
 		<tr class="row<?php echo $i % 2; ?>">
-			<td class="center">
-				<?php echo JHtml::_('grid.id', $i, $item->id); ?>
-			</td>
+			<td class="center"><?php echo JHtml::_('grid.id', $i, $item->id); ?></td>
 			<td><?php
 				/* Link zur Formularansicht für dieses Ding */
 				$mylink = JRoute::_("index.php?option=com_mythings&task=mything.edit&id=" . $item->id);
@@ -74,8 +78,8 @@ $listDirn = $this->escape($this->state->get('list.direction'));
 			<td><?php echo $this->escape($item->owner); ?></td>
 			<td><?php echo $this->escape($item->category); ?></td>
 			<td><?php
-				if ($item->lent != $nullDate) {
-					echo JHtml::_('date', $item->lent, JText::_('DATE_FORMAT_LC4'));
+				if ($item->lent_from != $nullDate) {
+					echo JHtml::_('date', $item->lent_from, JText::_('DATE_FORMAT_LC4'));
 				}
 				?>
 			</td>

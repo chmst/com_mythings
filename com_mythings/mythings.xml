@@ -5,7 +5,7 @@
 	<copyright>(c)2012 chmst.de - All rights reserved</copyright>
 	<authorUrl>chmst.de</authorUrl>
 	<license>GNU/GPL</license>
-	<version>0.3.0</version>
+	<version>0.5.0</version>
 	<description>COM_MYTHINGS_XML_DESCRIPTION</description>
 
 	<!-- SQL-Skript zum Anlegen der Komponenten-Tabelle(n) und den Beispieldaten -->
@@ -39,12 +39,19 @@
 	<administration>
 		<!-- Einträge im Admin-Menü -->
 		<menu img="class:component">COM_MYTHINGS</menu>
+		<submenu>
+			<menu link="option=com_categories&amp;extension=com_mythings"
+				view="categories" alt="MyThings/Categories">JCATEGORIES</menu>
+		</submenu>
 
 		<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
 		<files folder="admin">
 			<filename>mythings.php</filename>
 			<filename>controller.php</filename>
+			<filename>access.xml</filename>
 			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>images</folder>
 			<folder>language</folder>
 			<folder>models</folder>
 			<folder>sql</folder>

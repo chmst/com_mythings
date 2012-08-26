@@ -22,17 +22,19 @@ class MyThingsTableMyThings extends JTable
 	public $id;
 
 	/**
-	* @var string $owner - Jedes Ding hat einen Besitzer
+	* Jedes Ding hat einen Besitzer
+	* @var integer $owner_id - verweist auf einen Eintrag in #__users
 	*/
-	public $owner;
+	public $owner_id;
 
 	/**
-	* @var string $category - Ein Oberbegriff für das Ding
+	* Ein Oberbegriff für das Ding
+	* @var integer $category_id - verweist auf einen Eintrag in #__category
 	*/
-	public $category;
+	public $category_id;
 
 	/**
-	* @var string $title -Benennung, Kurzbezeichnung
+	* @var string $title - Benennung, Kurzbezeichnung
 	*/
 	public $title;
 
@@ -42,7 +44,7 @@ class MyThingsTableMyThings extends JTable
 	public $description;
 
 	/**
-	* @var string $state - Zustand, z.B. Neu, gebraucht 
+	* @var string $state - Zustand : neuwertig, beschädigt etc.
 	*/
 	public $state;
 
@@ -57,22 +59,43 @@ class MyThingsTableMyThings extends JTable
 	public $weight;
 
 	/**
-	* @var string $lent - Datum an dem das Ding ausgeliehen wurde
+	* @var string $img - Dateiname für ein hochgeladenes Bild
 	*/
-	public $lent;
+	public $img;
 
 	/**
-	* @var string $lent_by - Name der ausleihenden Person
+	* @var string $hits - So oft wurde die Detailansicht aufgerufen
 	*/
-	public $lent_by;
+	public $hits;
 
 	/**
-	* Konstruktor setzt Tabellenname, Primärschlüssel und das
-	* übergebene Datenbankobjekt.
+	* @var string $lent_from - Ausleihdatum
 	*/
-	public function __construct($db)
-	{
-		parent::__construct('#__mythings', 'id', $db);
-	}
+	public $lent_from;
 
+	/**
+	* @var string $lent_to - Rückgabedatum
+	*/
+	public $lent_to;
+
+	/**
+	* @var string $lent_by_id - User_id der ausleihenden Person
+	*/
+	public $lent_by_id;
+
+	/**
+	* @var string $hits - So oft wurde die Detailansicht aufgerufen
+	*/
+	public $hits;
+
+    /**
+    * Konstruktor setzt Tabellenname, Primärschlüssel und das
+    * übergebene Datenbankobjekt.
+    */
+    public function __construct($db)
+    {
+        parent::__construct('#__mythings', 'id', $db);
+    }
 }
+
+

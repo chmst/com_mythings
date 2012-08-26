@@ -25,8 +25,7 @@ class MyThingsModelMyThings extends JModelList
   {
     if (empty($config['filter_fields'])) {
       $config['filter_fields'] = array(
-              'id', 'owner','category','title','lent_by','lent'
-      );
+              'id', 'owner', 'category', 'title', 'lent_from', 'lent_by');
     }
 
     parent::__construct($config);
@@ -49,7 +48,11 @@ class MyThingsModelMyThings extends JModelList
     /* Suchbegriff für diese Ausgabe setzen */
     $this->setState('filter.search', $search);
 
-    /* Sortieren wird netterweise von der Elternklasse übernommen */
+    /* Auswahl des Benutzers in der Kategorie-Auswahl, übertragen in das state-Objekt */
+    $categoryId = $this->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
+    $this->setState('filter.category_id', $categoryId);
+
+	/* Sortieren wird netterweise von der Elternklasse übernommen */
     parent::populateState($ordering, $direction);
   }
 
@@ -63,6 +66,7 @@ class MyThingsModelMyThings extends JModelList
   protected function getStoreId($id = '')
   {
     $id	.= ':'.$this->getState('filter.search');
+    $id .= ':'.$this->getState('filter.category_id');
 
     return parent::getStoreId($id);
   }
@@ -70,34 +74,70 @@ class MyThingsModelMyThings extends JModelList
   /**
    * Datenbankabfrage für die Listenansicht aufbauen.
    * Suchfilter und Sortierung werden berücksichtigt, ansonsten
-   * wird aufsteigend nach `bezeichnung` sortiert.
+   * wird aufsteigend nach `title` sortiert.
    *
    * @return JDatabaseQuery
    */
   protected function getListQuery()
   {
     /* Referenz auf das Datenbankobjekt */
-    $db	= $this->getDbo();
+    $db = $this->getDbo();
 
     /* Ein neues, leeres JDatabaseQuery-Objekt anfordern */
     $query	= $db->getQuery(true);
 
-    /* Select-Abfrage in der Standardform aufbauen */
-    $query->select('*')->from('#__mythings');
+    /* Select-Anfrage aufbauen: Basis ist die Tabelle #__mythings */
+    $query->from('#__mythings AS a');
 
-    /* Falls eine Eingabe im Filterfeld steht: Abfrage um eine WHERE-Klausel ergänzen */
+    /* Alle Spalten von #__mythings auswählen */
+    $query->select('a.*' );
+
+    /*
+     * Benutzernamen zu den owner_id aus #__users ermitteln,
+     * über einen left join
+     */
+    $query->select('u.username AS owner');
+    $query->join('LEFT', '#__users AS u ON u.id = a.owner_id');
+
+    /*
+     * Benutzernamen zu den lent_by_id aus #__users ermitteln,
+     * über einen left join
+     */
+    $query->select('v.username AS lent_by');
+    $query->join('LEFT', '#__users AS v ON v.id = a.lent_by_id');
+
+    /*
+     * Kategorienamen zu den category_id aus #__categories ermitteln,
+     * über einen left join
+     */
+    $query->select('c.title AS category');
+    $query->join('LEFT', '#__categories AS c ON c.id = a.category_id');
+
+    /* Auswahl des Anwenders im Kategoriefilter ermitteln */
+    $categoryId = $this->getState('filter.category_id');
+
+    /*
+     * Wenn der Anwender eine Kategorie gewählt hat, ist der Wert numerisch
+     * Suche einschränken auf diese category_id
+     */
+    if (is_numeric($categoryId)) {
+        $query->where('a.category_id = '.(int) $categoryId);
+    }
+
+    /* Falls eine Eingabe im Suchfeld steht: Suche ergänzen */
     $search = $this->getState('filter.search');
+
     if (!empty($search)) {
-		$s = $db->quote('%'.$db->escape($search, true).'%');
-		$query->where('title LIKE ' .$s .'OR '
-					  'owner LIKE ' .$s .'OR '
-					  'title LIKE ' .$s .'OR '
-					  'lent_by LIKE ' .$s);
+
+      /* Um code-injection vorzubeugen haben wir hier quote() verwendent */
+      $s = $db->quote('%'.$db->escape($search, true).'%');
+      $query->where('a.title LIKE '. $s .' OR u.username LIKE '. $s .' OR c.title LIKE '. $s .' OR v.username LIKE '. $s);
     }
 
     /* Abfrage um die Sortierangaben ergänzen, Standardwert ist angegeben */
     $sort  = $this->getState('list.ordering', 'title');
     $order = $this->getState('list.direction', 'ASC');
+
     $query->order($db->escape($sort).' '.$db->escape($order));
 
     /* Fertig ist die Abfrage */

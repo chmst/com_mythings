@@ -38,6 +38,12 @@ class MyThingsViewMyThings extends JView
   protected $state;
 
   /**
+   * Die Konfiguration
+   * @var object $cparams
+   */
+  protected $cparams;
+
+  /**
    * Überschreiben der Methode display
    *
    * @param string $tpl Alternative Layoutdatei, leer = 'default'
