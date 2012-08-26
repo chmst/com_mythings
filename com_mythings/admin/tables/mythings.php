@@ -22,6 +22,11 @@ class MyThingsTableMyThings extends JTable
 	public $id;
 
 	/**
+	* @var int $asset_id Primärschlüssel des asset-Sates
+	*/
+	public $asset_id;
+
+	/**
 	* Jedes Ding hat einen Besitzer
 	* @var integer $owner_id - verweist auf einen Eintrag in #__users
 	*/
@@ -89,7 +94,7 @@ class MyThingsTableMyThings extends JTable
 	public $hits;
 
 	/**
-	* @var string $params - Konfigurationsparameter
+	* @var string $params - Konfigurationsparameter im JSON-Format
 	*/
 	public $params;
 
@@ -117,9 +122,45 @@ class MyThingsTableMyThings extends JTable
             $registry->loadArray($array['params']);
             $array['params'] = (string) $registry;
         }
+		/* Die Zugriffsregeln stehen im JAccessRules fertig verwendbar */
+		if (isset($array['rules']) && is_array($array['rules']))
+		{
+			$rules = new JAccessRules($array['rules']);
+			$this->setRules($rules);
+		}
 
         /* Weitere Verarbeitung an die Eltern-Klasse delegieren */
         return parent::bind($array, $ignore);
     }
+
+	/**
+	 * Der asset-name wird hier definiert
+	 */
+	protected function _getAssetName() {
+
+		/* der Primärschlüssel der Tabelle #__mythings (= id) */
+		$k = $this->_tbl_key;
+
+		/* Name des asset, mit der id des zugehörigen Satzes in #__mythings */
+		return 'com_mythings.mything.'.(int) $this->$k;
+	}
+
+	/**
+	 * Überschreiben der Methode, die den Titel des assets erzeugt
+	 */
+	protected function _getAssetTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * Unsere assets gehören alle zu com_mythings
+	 */
+	protected function _getAssetParentId($table = null, $id = null)
+	{
+		$asset = JTable::getInstance('asset');
+		$asset->loadByName('com_mythings');
+		return $asset->id;
+	}
 
 }

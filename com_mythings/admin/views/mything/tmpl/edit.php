@@ -97,6 +97,17 @@ JHtml::_('behavior.keepalive');
 </div>
 <?php echo JHtml::_('sliders.end'); ?>
 <div class="clr"></div>
+
+<div class="width-100 fltlft">
+   <?php echo JHtml::_('sliders.panel',JText::_('COM_MYTHINGS_ACCESS'), 'mythings-access'); ?>
+    <fieldset class="panelform">
+        <?php echo $this->form->getLabel('rules'); ?>
+        <?php echo $this->form->getInput('rules'); ?>
+    </fieldset>
+</div>
+
+<?php echo JHtml::_('sliders.end'); ?>
+
 <input type="hidden" name="task" value="" />
 <?php echo JHtml::_('form.token'); ?>
 

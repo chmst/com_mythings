@@ -23,6 +23,9 @@ $item = $this->item;
 /* Parameter für diesen Datensatz */
 $params = $this->params;
 
+/* Der Benutzer, für die Prüfung der Zugriffsberechtigung */
+$user = JFactory::getUser();
+
 /* Das Null-Datum der Datenbank, als Vergleichswert */
 $nullDate = JFactory::getDbo()->getNullDate();
 ?>

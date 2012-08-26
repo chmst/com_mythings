@@ -123,4 +123,20 @@
 
 </fields>
 
+    <fieldset name="mythings-access">
+        <field
+            name="asset_id"
+            type="hidden"
+            filter="unset" />
+        <field
+            name="rules"
+            type="rules"
+            label="JFIELD_RULES_LABEL"
+            validate="rules"
+			filter="rules"
+            class="inputbox"
+            component="com_mythings"
+            section="mythings" />
+    </fieldset>
+
 </form>

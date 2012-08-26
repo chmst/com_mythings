@@ -19,35 +19,35 @@ jimport('joomla.application.component.view');
  */
 class MyThingsViewMyThings extends JView
 {
-  /**
-   * Die Tabellenzeilen für den mittleren Teil der View
-   * @var object $items
-   */
-  protected $items;
+    /**
+     * Die Tabellenzeilen für den mittleren Teil der View
+     * @var object $items
+     */
+    protected $items;
 
-  /**
-   * Die Daten für die Blätterfunktion
-   * @var object $pagination
-   */
-  protected $pagination;
+    /**
+     * Die Daten für die Blätterfunktion
+     * @var object $pagination
+     */
+    protected $pagination;
 
-  /**
-   * Die Daten der aktuellen Session
-   * @var object $state
-   */
-  protected $state;
+    /**
+     * Die Daten der aktuellen Session
+     * @var object $state
+     */
+    protected $state;
 
-  /**
-   * Die Konfiguration
-   * @var object $cparams
-   */
-  protected $cparams;
+	/**
+	 * Die Konfiguration
+	 * @var object $cparams
+	 */
+	protected $cparams;
 
-  /**
-   * Überschreiben der Methode display
-   *
-   * @param string $tpl Alternative Layoutdatei, leer = 'default'
-   */
+    /**
+     * Überschreiben der Methode display
+     *
+     * @param string $tpl Alternative Layoutdatei, leer = 'default'
+     */
     function display($tpl = null)
     {
         /* JView holt die Daten vom Model */
@@ -60,6 +60,11 @@ class MyThingsViewMyThings extends JView
 
         /* Daten für die Blätterfunktion  */
         $this->pagination	= $this->get('Pagination');
+
+        /* Fehler abfangen, die beim Aufbau der View aufgetreten sind  */
+        if (count($errors = $this->get('Errors'))) {
+            JError::raise(500, implode('/n', $errors));
+        }
 
         /* Aufbau der Toolbar */
         $this->addToolbar();
@@ -74,22 +79,44 @@ class MyThingsViewMyThings extends JView
      */
     protected function addToolbar()
     {
+        /* Für die Berechtigungsprüfung benötigt */
+        $state	= $this->get('State');
+        $user	= JFactory::getUser();
+
+        /*
+         * Die Helperklasse liefert in ie möglichen Aktionen und
+         * dazu die Angabe, ob der Benutzer diese Aktion ausführen darf
+         */
+        $canDo	= MyThingsHelper::getActions($state->get('filter.category_id'));
 
         /* Links oben der Titel */
         JToolBarHelper::title(JText::_('COM_MYTHINGS_ADMIN'));
 
-        /* Button addNew;  Ein Datensatz, daher Controller mything, task add */
-        JToolBarHelper::addNew('mything.add', 'JTOOLBAR_NEW');
+        /*
+         * Darf der Benutzer in den Kategorien von Mythings etwas ändern?
+         * Nur dann zeigen wir den Button für "Neuaufnahme"
+         */
+        if (count($user->getAuthorisedCategories('com_mythings', 'core.create')) > 0) {
+			/* Button addNew;  Ein Datensatz, daher Controller mything, task add */
+            JToolBarHelper::addNew('mything.add', 'JTOOLBAR_NEW');
+        }
 
-        /* Button editList;  Ein Datensatz, daher Controller mything, task edit */
-        JToolBarHelper::editList('mything.edit', 'JTOOLBAR_EDIT');
+        /* Änderungsbutton, nur zeigen, wenn der Benutzer die Berechtigung hat */
+        if ($canDo->get('core.edit')) {
+            /* Button editList;  Ein Datenatz, daher Controller mything, task edit */
+            JToolBarHelper::editList('mything.edit', 'JTOOLBAR_EDIT');
+        }
 
-        /* Button delete, kann sich auf mehrere Datensätze beziehen, daher mythings */
-        JToolBarHelper::deleteList('', 'mythings.delete', 'JTOOLBAR_DELETE');
+        /* Löschen-sbutton, nurzeigen wenn der Benutzer die Berechtigung hat */
+        if ($canDo->get('core.delete')) {
+            /* Button delete, kann sich auf mehrere Datensätze beziehen, daher mything */
+            JToolBarHelper::deleteList('', 'mythings.delete', 'JTOOLBAR_DELETE');
+        }
 
         /* Button "Optionen" nur zeigen wenn der Benutzer die Berechtigung hat */
-        JToolBarHelper::preferences('com_mythings');
-
+        if ($canDo->get('core.admin')) {
+            JToolBarHelper::preferences('com_mythings');
+        }
     }
 
 }

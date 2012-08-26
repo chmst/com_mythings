@@ -1,12 +1,12 @@
 #
 # Tabelle `#__mythings`
-# Kapitel 19
-# Erweiterte Tabelle, Stand Konfigurierung 
+# Kapitel 20
 #
 
 DROP TABLE IF EXISTS `#__mythings`;
 CREATE TABLE IF NOT EXISTS `#__mythings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `asset_id` smallint(11) DEFAULT NULL,
   `owner_id` smallint(11) DEFAULT NULL,
   `category_id` smallint(11) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,

@@ -44,5 +44,39 @@ class MyThingsHelper {
         }
     }
 
+    /**
+     * Diese Methode baut ein Werteobjekt auf mit den Namen aller
+     * Aktionen, die in der access.xml definiert sind und gibt bei
+     * jeder Aktion an, ob sie der Benutzer ausführen darf.
+     *
+     * @param  int $categoryId
+     * @return JObject
+     */
+    public static function getActions($categoryId = 0) {
+
+        /* Der User, der gerade aktiv ist und dessen Berechtigungen ermittelt werden */
+        $user = JFactory::getUser();
+
+        /* Falls eine categoryId übergeben wurde, ist sie unser Asset */
+        if (empty($categoryId)) {
+            $assetName = 'com_mythings';
+        } else {
+            $assetName = 'com_mythings.category.' . (int) $categoryId;
+        }
+
+        /* Das Ausgabeobjekt wird neu angelegt */
+        $result = new JObject;
+
+        /* Die Aktionen einlesen, die bei MyThings möglich sind */
+        $actions =  JAccess::getActions('com_mythings');
+
+        // Für jede Aktion wird geprüft, ob der User authorisiert ist,
+        // diese auszuführen (TRUE/FASLE)
+        foreach ($actions as $action) {
+            $result->set($action->name, $user->authorise($action, $assetName));
+        }
+
+        return $result;
+    }
 
 }

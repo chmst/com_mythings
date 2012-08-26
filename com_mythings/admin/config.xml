@@ -21,7 +21,7 @@
 	        label="COM_MYTHINGS_ORDERCOL_LABEL"
 	        >
             <option value="title">COM_MYTHINGS_TITLE_LABEL</option>
-            <option value="category">COM_MYTHINGS_CAT_LABEL</option>
+            <option value="category_id">COM_MYTHINGS_CAT_LABEL</option>
             <option value="lent_by">COM_MYTHINGS_LENTBY_LABEL</option>
             <option value="lent_from">COM_MYTHINGS_LENT_LABEL</option>
         </field>
@@ -49,4 +49,18 @@
         </field>
     </fieldset>
 
+    <fieldset
+	    name="permissions"
+	    label="JCONFIG_PERMISSIONS_LABEL"
+	    description="JCONFIG_PERMISSIONS_DESC"
+	    >
+        <field
+	        name="rules"
+	        type="rules"
+	        label="JCONFIG_PERMISSIONS_LABEL"
+	        filter="rules"
+	        validate="rules"
+	        component="com_mythings"
+	        section="component" />
+    </fieldset>
 </config>

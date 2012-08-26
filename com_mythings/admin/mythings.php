@@ -12,6 +12,12 @@
 defined('_JEXEC') or die;
 JLoader::import('joomla.application.component.controller');
 
+
+/* Nur Benutzer mit der Berechtigung 'manage' dürfen zugreifen */
+if (!JFactory::getUser()->authorise('core.manage', 'com_mythings')) {
+	return JError::raiseWarning(403, JText::_('JERROR_MYTHINGS_NO_ACCESS'));
+}
+
 /* Einstieg in die Komponente - MyThingsController instanziieren */
 $controller	= JController::getInstance('mythings');
 
