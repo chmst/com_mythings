@@ -24,6 +24,19 @@ class MyThingsViewMyThings extends JView
    * @var object $items
    */
   protected $items;
+
+  /**
+   * Die Daten für die Blätterfunktion
+   * @var object $pagination
+   */
+  protected $pagination;
+
+  /**
+   * Die Daten der aktuellen Session
+   * @var object $state
+   */
+  protected $state;
+
   /**
    * Überschreiben der Methode display
    *
@@ -31,11 +44,21 @@ class MyThingsViewMyThings extends JView
    */
   function display($tpl = null)
   {
+	/* Die Datensätze mit getItems() aus JModelList aufrufen */
+	$this->items		= $this->get('Items');
 
-    /* Die Datensätze mit getItems() aus JModelList aufrufen */
-    $this->items = $this->get('Items');
+	/* Statusinformationen, für die  Sortierung */
+	$this->state		= $this->get('State');
 
-    /* View ausgeben - zurückdelegiert an die Elternklasse */
-    parent::display($tpl);
+	/* Daten für die Blätterfunktion  */
+	$this->pagination	= $this->get('Pagination');
+
+	/* Fehler abfangen, duie beim Aufbau der View aufgetreten sind  */
+	if (count($errors = $this->get('Errors'))) {
+		JError::raise(500, implode("\n", $errors));
+	}
+
+	/* View ausgeben - zurückdelegiert an die Elternklasse */
+	parent::display($tpl);
   }
 }

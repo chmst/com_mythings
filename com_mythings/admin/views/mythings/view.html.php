@@ -26,6 +26,18 @@ class MyThingsViewMyThings extends JView
   protected $items;
 
   /**
+   * Die Daten für die Blätterfunktion
+   * @var object $pagination
+   */
+  protected $pagination;
+
+  /**
+   * Die Daten der aktuellen Session
+   * @var object $state
+   */
+  protected $state;
+
+  /**
    * Überschreiben der Methode display
    *
    * @param string $tpl Alternative Layoutdatei, leer = 'default'
@@ -37,7 +49,13 @@ class MyThingsViewMyThings extends JView
         /* Die Datensätze aus der Tabelle mythings */
         $this->items		= $this->get('Items');
 
-        /* Aufnbau der Toolbar */
+        /* Statusinformationen für die Sortierung */
+        $this->state		= $this->get('State');
+
+        /* Daten für die Blätterfunktion  */
+        $this->pagination	= $this->get('Pagination');
+
+        /* Aufbau der Toolbar */
         $this->addToolbar();
 
         /* View ausgeben - zurückdelegiert an die Elternklasse */
