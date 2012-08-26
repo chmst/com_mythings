@@ -1,6 +1,6 @@
 #
 # Tabelle `#__mythings`
-# Kapitel 3 (Start)
+# Kapitel 3
 # Vorbereitung und Erstinstallation
 #
 
