@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>com_mythings</name>
+	<creationDate>Juli 2012</creationDate>
+	<license>GNU/GPL</license>
+	<version>0.0.1</version>
+
+	<administration>
+		<menu img="class:component">mythings</menu>
+	</administration>
+</extension>
