@@ -5,8 +5,8 @@
 	<copyright>(c)2012 chmst.de - All rights reserved</copyright>
 	<authorUrl>chmst.de</authorUrl>
 	<license>GNU/GPL</license>
-	<version>0.2.0</version>
-	<description>MyThings - Beispielkomponente Mythings in Joomla 2.5</description>
+	<version>0.3.0</version>
+	<description>COM_MYTHINGS_XML_DESCRIPTION</description>
 
 	<!-- SQL-Skript zum Anlegen der Komponenten-Tabelle(n) und den Beispieldaten -->
 	<install>
@@ -26,22 +26,26 @@
 	<files folder="site">
 		<filename>mythings.php</filename>
 		<filename>controller.php</filename>
+		<folder>language</folder>
 		<folder>models</folder>
 		<folder>views</folder>
 	</files>
 
-
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_mythings.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.com_mythings.ini</language>
+	</languages>
 
 	<administration>
 		<!-- Einträge im Admin-Menü -->
 		<menu img="class:component">COM_MYTHINGS</menu>
-
 
 		<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
 		<files folder="admin">
 			<filename>mythings.php</filename>
 			<filename>controller.php</filename>
 			<folder>controllers</folder>
+			<folder>language</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>

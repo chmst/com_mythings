@@ -18,7 +18,7 @@ $nullDate = JFactory::getDbo()->getNullDate();
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_mythings&view=mythings'); ?>"
-      method="post" name="adminForm" id="adminForm">
+	method="post" name="adminForm" id="adminForm">
 	<table class="adminlist">
 		<thead>
 		<tr>
@@ -43,13 +43,14 @@ $nullDate = JFactory::getDbo()->getNullDate();
 				echo '<a href="' . $mylink . '">' . $this->escape($item->title) . '</a>';
 				?>
 			</td>
-			<td><?php echo $this->escape($item->category); ?></td>
 			<td><?php echo $this->escape($item->owner); ?></td>
+			<td><?php echo $this->escape($item->category); ?></td>
 			<td><?php
 				if ($this->escape($item->lent) != $nullDate) {
 					echo JHtml::_('date', $item->lent, JText::_('DATE_FORMAT_LC4'));
 				}
-			?></td>
+				?>
+			</td>
 			<td><?php echo $this->escape($item->lent_by); ?></td>
 			<td class="center"><?php echo (int)$item->id; ?></td>
 		</tr>
@@ -57,7 +58,7 @@ $nullDate = JFactory::getDbo()->getNullDate();
 		</tbody>
 	</table>
 
-	<input type="hidden" name="task"/>
+	<input type="hidden" name="task" value=""/>
 	<input type="hidden" name="boxchecked" value="0"/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>

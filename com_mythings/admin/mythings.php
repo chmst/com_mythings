@@ -7,13 +7,13 @@
  * @package    MyThings
  * @subpackage Backend
  * @author     chmst.de, webmechanic.biz
- * @license    GNU/GPL
+ * @license	   GNU/GPL
  */
 defined('_JEXEC') or die;
 JLoader::import('joomla.application.component.controller');
 
 /* Einstieg in die Komponente - MyThingsController instanziieren */
-$controller = JController::getInstance('mythings');
+$controller	= JController::getInstance('mythings');
 
 /* Das Anwendungsobjekt holen  */
 $app = JFactory::getApplication();

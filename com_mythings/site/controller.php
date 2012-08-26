@@ -7,7 +7,7 @@
  * @package    Mythings
  * @subpackage Frontend
  * @author     chmst.de, webmechanic.biz
- * @license    GNU/GPLv2 or later
+ * @license	   GNU/GPLv2 or later
  */
 defined('_JEXEC') or die;
 
@@ -15,5 +15,4 @@ defined('_JEXEC') or die;
  * Der Controller MyThingsController erbt alles von JController
  */
 class MyThingsController extends JController
-{
-}
+{ }

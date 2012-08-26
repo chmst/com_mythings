@@ -7,7 +7,7 @@
  * @package    Mythings
  * @subpackage Backend
  * @author     chmst.de, webmechanic.biz
- * @license    GNU/GPLv2 or later
+ * @license	   GNU/GPLv2 or later
  */
 defined('_JEXEC') or die;
 
@@ -19,49 +19,50 @@ jimport('joomla.application.component.view');
  */
 class MyThingsViewMyThings extends JView
 {
-	/**
-	 * Die Tabellenzeilen für den mittleren Teil der View
-	 * @var object $items
-	 */
-	protected $items;
+  /**
+   * Die Tabellenzeilen für den mittleren Teil der View
+   * @var object $items
+   */
+  protected $items;
 
-	/**
-	 * Überschreiben der Methode display
-	 *
-	 * @param string $tpl Alternative Layoutdatei, leer = 'default'
-	 */
-	function display($tpl = null)
-	{
-		/* JView holt die Daten vom Model */
+  /**
+   * Überschreiben der Methode display
+   *
+   * @param string $tpl Alternative Layoutdatei, leer = 'default'
+   */
+    function display($tpl = null)
+    {
+        /* JView holt die Daten vom Model */
 
-		/* Die Datensätze aus der Tabelle mythings */
-		$this->items = $this->get('Items');
+        /* Die Datensätze aus der Tabelle mythings */
+        $this->items		= $this->get('Items');
 
-		/* Aufnbau der Toolbar */
-		$this->addToolbar();
+        /* Aufnbau der Toolbar */
+        $this->addToolbar();
 
-		/* View ausgeben - zurückdelegiert an die Elternklasse */
-		parent::display($tpl);
-	}
+        /* View ausgeben - zurückdelegiert an die Elternklasse */
+        parent::display($tpl);
+    }
 
-	/**
-	 * Aufbau der Toolbar, es werden nur die Buttons eingefügt,
-	 * für die der Benutzer eine Berechtigung hat.
-	 */
-	protected function addToolbar()
-	{
-		/* Links oben der Titel */
-		JToolBarHelper::title(JText::_('COM_MYTHINGS_ADMIN'));
+    /**
+     * Aufbau der Toolbar, es werden nur die Buttons eingefügt,
+     * für die der Benutzer eine Berechtigung hat.
+     */
+    protected function addToolbar()
+    {
 
-		/* Button addNew;  Ein Datensatz, daher Controller mything, task add */
-		JToolBarHelper::addNew('mything.add', 'JTOOLBAR_NEW');
+        /* Links oben der Titel */
+        JToolBarHelper::title(JText::_('COM_MYTHINGS_ADMIN'));
 
-		/* Button editList;  Ein Datensatz, daher Controller mything, task edit */
-		JToolBarHelper::editList('mything.edit', 'JTOOLBAR_EDIT');
+        /* Button addNew;  Ein Datensatz, daher Controller mything, task add */
+        JToolBarHelper::addNew('mything.add', 'JTOOLBAR_NEW');
 
-		/* Button delete, kann sich auf mehrere Datensätze beziehen, daher mythings */
-		JToolBarHelper::deleteList('', 'mythings.delete', 'JTOOLBAR_DELETE');
+        /* Button editList;  Ein Datensatz, daher Controller mything, task edit */
+        JToolBarHelper::editList('mything.edit', 'JTOOLBAR_EDIT');
 
-	}
+        /* Button delete, kann sich auf mehrere Datensätze beziehen, daher mythings */
+        JToolBarHelper::deleteList('', 'mythings.delete', 'JTOOLBAR_DELETE');
+
+    }
 
 }
