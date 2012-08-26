@@ -2,14 +2,14 @@
 /**
  * Joomla! 2.5 - Erweiterungen programmieren
  *
- * Detail-Layout für das Frontend. Ausgabe als HTML-Tabelle.
+ * Detail-Layout fÃ¼r das Frontend. Ausgabe als HTML-Tabelle.
  *
  * @package    Mythings
  * @subpackage Frontend
  * @author     chmst.de, webmechanic.biz
  * @license	   GNU/GPLv2 or later
  *
- * @todo  HTML-Ausgabe mit CSS anhübschen
+ * @todo  HTML-Ausgabe mit CSS anhÃ¼bschen
  */
 defined('_JEXEC') or die;
 
@@ -19,6 +19,9 @@ JHtml::_('behavior.formvalidation');
 
 /* Das Item, Eigenschaft der View, die hier ausgegeben wird */
 $item = $this->item;
+
+/* Parameter fÃ¼r diesen Datensatz */
+$params = $this->params;
 
 /* Das Null-Datum der Datenbank, als Vergleichswert */
 $nullDate = JFactory::getDbo()->getNullDate();
@@ -53,14 +56,18 @@ $nullDate = JFactory::getDbo()->getNullDate();
 	}
 	?></td>
     </tr>
-    <tr>
-        <td><?php echo JText::_('COM_MYTHINGS_VALUE'); ?></td>
-        <td><?php echo $this->escape($item->value); ?></td>
+<?php if ($params->get('value')) : ?>
+	<tr>
+	<td><?php echo JText::_('COM_MYTHINGS_VALUE'); ?></td>
+	<td><?php echo $this->escape($item->value); ?></td>
     </tr>
-    <tr>
-        <td><?php echo JText::_('COM_MYTHINGS_WEIGHT'); ?></td>
-        <td><?php echo $this->escape($item->weight); ?></td>
-    </tr>
+<?php endif; ?>
+<?php if ($params->get('weight')) : ?>
+	<tr>
+	<td><?php echo JText::_('COM_MYTHINGS_WEIGHT'); ?></td>
+	<td><?php echo $this->escape($item->weight); ?></td>
+	</tr>
+<?php endif; ?>
 </table>
 
 <h1>
@@ -68,7 +75,7 @@ $nullDate = JFactory::getDbo()->getNullDate();
 	/**
 	 * Das Ausleihdatum wird gegen das Null-Datum der Datenbank verglichen.
 	 */
-	if ($item->lent ==  $nullDate) {
+	if ($item->lent_from ==  $nullDate) {
 		echo JText::_('COM_MYTHINGS_AVAILABLE');
 	} else {
 		echo JText::_('COM_MYTHINGS_NOT_AVAILABLE');

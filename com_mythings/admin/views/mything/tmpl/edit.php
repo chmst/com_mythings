@@ -82,6 +82,18 @@ JHtml::_('behavior.keepalive');
             </li>
     	</ul>
 	</fieldset>
+
+    <?php echo JHtml::_('sliders.panel',JText::_('COM_MYTHINGS_CONFIGURATION'), 'params'); ?>
+    <fieldset class="panelform">
+    <ul class="adminformlist">
+        <?php foreach ($this->form->getFieldset('detail_layout') as $field) : ?>
+            <li>
+            <?php echo $field->label; ?>
+            <?php echo $field->input; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    </fieldset>
 </div>
 <?php echo JHtml::_('sliders.end'); ?>
 <div class="clr"></div>

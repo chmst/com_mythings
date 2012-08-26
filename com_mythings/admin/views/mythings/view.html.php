@@ -87,6 +87,9 @@ class MyThingsViewMyThings extends JView
         /* Button delete, kann sich auf mehrere Datensätze beziehen, daher mythings */
         JToolBarHelper::deleteList('', 'mythings.delete', 'JTOOLBAR_DELETE');
 
+        /* Button "Optionen" nur zeigen wenn der Benutzer die Berechtigung hat */
+        JToolBarHelper::preferences('com_mythings');
+
     }
 
 }

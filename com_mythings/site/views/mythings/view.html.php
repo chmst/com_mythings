@@ -7,7 +7,7 @@
  * @package    Mythings
  * @subpackage Frontend
  * @author     chmst.de, webmechanic.biz
- * @license	   GNU/GPLv2 or later
+ * @license       GNU/GPLv2 or later
  */
 defined('_JEXEC') or die;
 
@@ -19,46 +19,72 @@ jimport('joomla.application.component.view');
  */
 class MyThingsViewMyThings extends JView
 {
-  /**
-   * Die Tabellenzeilen für den mittleren Teil der View
-   * @var object $items
-   */
-  protected $items;
+	/**
+	 * Die Tabellenzeilen für den mittleren Teil der View
+	 * @var object $items
+	 */
+	protected $items;
 
-  /**
-   * Die Daten für die Blätterfunktion
-   * @var object $pagination
-   */
-  protected $pagination;
+	/**
+	 * Die Daten für die Blätterfunktion
+	 * @var object $pagination
+	 */
+	protected $pagination;
 
-  /**
-   * Die Daten der aktuellen Session
-   * @var object $state
-   */
-  protected $state;
+	/**
+	 * Die Daten der aktuellen Session
+	 * @var object $state
+	 */
+	protected $state;
 
-  /**
-   * Überschreiben der Methode display
-   *
-   * @param string $tpl Alternative Layoutdatei, leer = 'default'
-   */
-  function display($tpl = null)
-  {
-	/* Die Datensätze mit getItems() aus JModelList aufrufen */
-	$this->items		= $this->get('Items');
+	/**
+	 * Die Menü-Parameter
+	 * @var object $params
+	 */
+	protected $params;
 
-	/* Statusinformationen, für die  Sortierung */
-	$this->state		= $this->get('State');
+	/**
+	 * Überschreiben der Methode display
+	 *
+	 * @param string $tpl Alternative Layoutdatei, leer = 'default'
+	 */
+	function display($tpl = null)
+	{
+		/* Die Datensätze mit getItems() aus JModelList aufrufen */
+		$this->items = $this->get('Items');
 
-	/* Daten für die Blätterfunktion  */
-	$this->pagination	= $this->get('Pagination');
+		/* Statusinformationen, für die  Sortierung */
+		$this->state = $this->get('State');
 
-	/* Fehler abfangen, duie beim Aufbau der View aufgetreten sind  */
-	if (count($errors = $this->get('Errors'))) {
-		JError::raise(500, implode("\n", $errors));
+		/* Daten für die Blätterfunktion  */
+		$this->pagination = $this->get('Pagination');
+
+
+		/* Die Parameter */
+		$this->params = $this->state->get('params');
+
+		/* Fehler abfangen, die beim Aufbau der View aufgetreten sind  */
+		if (count($errors = $this->get('Errors'))) {
+			JError::raise(500, implode("\n", $errors));
+		}
+
+
+		JPluginHelper::importPlugin('mythings');
+		$num_items = count($this->items);
+		$dispatcher = JDispatcher::getInstance();
+		$result = $dispatcher->trigger('onMythingsBeforeDisplay',
+			array('com_mythings.mythings', $num_items));
+		// ins Template
+		$this->before_display = implode("\n", $result);
+
+		if ($num_items > 0) {
+			foreach ($this->items as $item) {
+				$dispatcher->trigger('onMythingsDisplay',
+					array('com_mythings.mythings', &$item, $this->params));
+			}
+		}
+
+		/* View ausgeben - zurückdelegiert an die Elternklasse */
+		parent::display($tpl);
 	}
-
-	/* View ausgeben - zurückdelegiert an die Elternklasse */
-	parent::display($tpl);
-  }
 }

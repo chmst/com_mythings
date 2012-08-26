@@ -23,6 +23,7 @@ $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 
 ?>
+<?php echo $this->before_display ?>
 
 <h1><?php echo JText::_('COM_MYTHINGS_SLOGAN'); ?></h1>
 

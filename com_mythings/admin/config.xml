@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+    <fieldset
+	    name="order"
+	    label="COM_MYTHINGS_ORDER_OPTIONS"
+	    >
+        <field
+	        name="orderdir"
+	        type="list"
+	        default="ASC"
+	        label="COM_MYTHINGS_ORDERDIR_LABEL"
+	        >
+            <option value="ASC">COM_MYTHINGS_OPTION_ASC</option>
+            <option value="DESC">COM_MYTHINGS_OPTION_DESC</option>
+        </field>
+        <field
+	        name="ordercol"
+	        type="list"
+	        default="1"
+	        label="COM_MYTHINGS_ORDERCOL_LABEL"
+	        >
+            <option value="title">COM_MYTHINGS_TITLE_LABEL</option>
+            <option value="category">COM_MYTHINGS_CAT_LABEL</option>
+            <option value="lent_by">COM_MYTHINGS_LENTBY_LABEL</option>
+            <option value="lent_from">COM_MYTHINGS_LENT_LABEL</option>
+        </field>
+    </fieldset>
+
+    <fieldset
+	    name="detail_layout"
+	    label="COM_MYTHINGS_DETAIL_LAYOUT_OPTIONS"
+	    >
+        <field
+	        name="value"
+	        type="radio" default="1"
+	        label="COM_MYTHINGS_VALUE_LABEL"
+	        >
+            <option value="0">JHIDE</option>
+            <option value="1">JSHOW</option>
+        </field>
+        <field
+	        name="weight"
+	        type="radio" default="1"
+	        label="COM_MYTHINGS_WEIGHT_LABEL"
+	        >
+            <option value="0">JHIDE</option>
+            <option value="1">JSHOW</option>
+        </field>
+    </fieldset>
+
+</config>

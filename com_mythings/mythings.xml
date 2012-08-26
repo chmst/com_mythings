@@ -5,7 +5,7 @@
 	<copyright>(c)2012 chmst.de - All rights reserved</copyright>
 	<authorUrl>chmst.de</authorUrl>
 	<license>GNU/GPL</license>
-	<version>0.5.0</version>
+	<version>0.6.0</version>
 	<description>COM_MYTHINGS_XML_DESCRIPTION</description>
 
 	<!-- SQL-Skript zum Anlegen der Komponenten-Tabelle(n) und den Beispieldaten -->
@@ -38,7 +38,7 @@
 
 	<administration>
 		<!-- Einträge im Admin-Menü -->
-		<menu img="class:component">COM_MYTHINGS</menu>
+		<menu img="components/com_mythings/images/mythings-16.png">COM_MYTHINGS</menu>
 		<submenu>
 			<menu link="option=com_categories&amp;extension=com_mythings"
 				view="categories" alt="MyThings/Categories">JCATEGORIES</menu>
@@ -49,6 +49,7 @@
 			<filename>mythings.php</filename>
 			<filename>controller.php</filename>
 			<filename>access.xml</filename>
+			<filename>config.xml</filename>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
 			<folder>images</folder>

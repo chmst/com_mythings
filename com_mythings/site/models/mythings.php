@@ -31,7 +31,7 @@ class MyThingsModelMyThings extends JModelList
     parent::__construct($config);
   }
 
-      /*
+  /**
    * Ergänzungen zum Setzen des "Datenzustandes" (state) des Models
    * damit der Suchfilter nicht verloren geht. Standard: sortiert
    * nach title, aufsteigend
@@ -43,15 +43,26 @@ class MyThingsModelMyThings extends JModelList
 
   protected function populateState($ordering = 'title', $direction = 'ASC')
   {
-    $app = JFactory::getApplication();
+    /* Den aktuellen Menüpunkt ermitteln, er entält die Parameter */
+    $menu = JFactory::getApplication()->getMenu();
+    $menu_item = $menu->getActive();
 
-	// Sortierung aus der angeklickten Tabellenspalte
-	$ordering  = $app->input->get('filter_order', $ordering);
-	$direction = $app->input->get('filter_order_Dir', $direction);
+    /* Die globalen Parameter der Komponente ermitteln */
+    $temp = JComponentHelper::getParams('com_mythings');
+
+    /* Globale Parameter und Menüparameter usammenführen */
+    if ($menu_item) {
+        $temp->merge($menu_item->params);
+    }
+
+    /* Danach hat man die Sortierrichtung und das Sortierfeld*/
+    $ordering  = $temp->get('ordercol', $ordering);
+    $direction = $temp->get('orderdir', $direction);
 
     /* Sortieren wird netterweise von der Elternklasse übernommen */
     parent::populateState($ordering, $direction);
   }
+
   /**
    * Die Methode wird überschrieben, um den Tabellennamen und die
    * benötigten Spalten anzugeben.
@@ -65,7 +76,7 @@ class MyThingsModelMyThings extends JModelList
     $query = $db->getQuery(true);
 
     /* Name der Tabelle für die Komponente */
-    $query->from('#__mythings');
+    $query->from('#__mythings AS a');
 
     /* Alle Tabellenspalte anfordern `*/
     $query->select('a.*');
@@ -82,6 +93,7 @@ class MyThingsModelMyThings extends JModelList
 	$sort  = $this->getState('list.ordering');
 	$order = $this->getState('list.direction');
 	$query->order($db->escape($sort).' '.$db->escape($order));
+
 
     /* Das Abfrageobjekt zurückgeben */
     return $query;

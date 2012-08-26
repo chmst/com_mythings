@@ -22,17 +22,48 @@ class MyThingsViewMyThing extends JView
 	/* Der Datensatz */
     protected $item;
 
-	/**
-	* Überschreiben der Methode display
-	*
-	* @param string $tpl alternative Layoutdatei, leer = 'default'
-	*/
+    /* Die Parameter */
+    protected $params;
+
+
+    /**
+    * Überschreiben der Methode display
+    *
+    * @param string $tpl alternative Layoutdatei, leer = 'default'
+    */
     function display($tpl = null)
     {
-	    /* getItem() aus JModelList aufrufen */
+        /* getItem() aus JModelList aufrufen */
         $this->item	= $this->get('Item');
 
-        /* View ausgeben - zurückdelegiert an die Elternklasse */
-        parent::display($tpl);
+        /* Parameter aus dem item in ein Array umwandeln */
+        $params = new JRegistry();
+        $params->loadString($this->item->params);
+
+        /* Die globalen Komponentenparameter holen */
+        $temp = JComponentHelper::getParams('com_mythings');
+
+        /*
+        * Die Parameter des items mit den globalen Parametern
+        * zusammenführen, und die globalen Parameter
+        * dabei überschreiben
+        */
+        $temp->merge($params);
+
+        /* Jetzt haben wir die aktuellen Parameter */
+        $this->params = $temp;
+
+        /* Fehler abfangen, duie beim Aufbau der View aufgetreten sind  */
+        if (count($errors = $this->get('Errors'))) {
+            JError::raise(500, implode('/n', $errors));
+        }
+
+        /* Triggern des Event onMythingDisplay */
+        JPluginHelper::importPlugin('mythings');
+        $dispatcher = JDispatcher::getInstance();
+        $dispatcher->trigger('onMythingDisplay',
+            array ('com_mythings.mything', &$this->item, &$this->params));
+
+		parent::display($tpl);
     }
 }

@@ -99,4 +99,28 @@
         size="20" />
 </fieldset>
 
+<fields name="params">
+    <fieldset
+	name="detail_layout"
+    label="COM_MYTHINGS_DETAIL_LAYOUT_OPTIONS" >
+        <field name="value"
+            type="list"
+            label="COM_MYTHINGS_VALUE_LABEL"
+			>
+            <option value="">JGLOBAL_USE_GLOBAL</option>
+            <option value="0">JHIDE</option>
+            <option value="1">JSHOW</option>
+        </field>
+        <field name="weight"
+            type="list"
+            label="COM_MYTHINGS_WEIGHT_LABEL"
+			>
+            <option value="">JGLOBAL_USE_GLOBAL</option>
+            <option value="0">JHIDE</option>
+            <option value="1">JSHOW</option>
+        </field>
+    </fieldset>
+
+</fields>
+
 </form>

@@ -88,6 +88,11 @@ class MyThingsTableMyThings extends JTable
 	*/
 	public $hits;
 
+	/**
+	* @var string $params - Konfigurationsparameter
+	*/
+	public $params;
+
     /**
     * Konstruktor setzt Tabellenname, Primärschlüssel und das
     * übergebene Datenbankobjekt.
@@ -96,6 +101,25 @@ class MyThingsTableMyThings extends JTable
     {
         parent::__construct('#__mythings', 'id', $db);
     }
+
+    /**
+    * Überschreiben der Methode bind von JTable
+    */
+    public function bind($array, $ignore = '')
+    {
+        /*
+         * Die Eingabe in die Parameter-Felder muss in das
+         * JSON-Format konvertiert werden.
+         */
+        if (isset($array['params']) && is_array($array['params']))
+        {
+            $registry = new JRegistry;
+            $registry->loadArray($array['params']);
+            $array['params'] = (string) $registry;
+        }
+
+        /* Weitere Verarbeitung an die Eltern-Klasse delegieren */
+        return parent::bind($array, $ignore);
+    }
+
 }
-
-

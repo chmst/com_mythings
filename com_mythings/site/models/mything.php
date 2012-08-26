@@ -54,6 +54,7 @@ class MyThingsModelMyThing extends JModelItem
 		/* und ausführen. Das Ergebnis ist ein Objekt */
         $result = $db->loadObject();
 
+        $params = $this->getState('params');
       }
 	  /* Übergabe des Ergebnisobjekts an die View */
       return $result;
