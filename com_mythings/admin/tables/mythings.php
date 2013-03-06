@@ -69,11 +69,6 @@ class MyThingsTableMyThings extends JTable
 	public $img;
 
 	/**
-	* @var string $hits - So oft wurde die Detailansicht aufgerufen
-	*/
-	public $hits;
-
-	/**
 	* @var string $lent_from - Ausleihdatum
 	*/
 	public $lent_from;
