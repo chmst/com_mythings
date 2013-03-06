@@ -24,6 +24,9 @@ class MyThingsViewMyThing extends JView
 
     /* Die Parameter */
     protected $params;
+    
+    /* Für den Ausleihvorgang: form */
+    protected $form;
 
 
     /**
@@ -35,6 +38,9 @@ class MyThingsViewMyThing extends JView
     {
         /* getItem() aus JModelList aufrufen */
         $this->item	= $this->get('Item');
+        
+        /* getForm() aus JModelForm aufrufen */
+        $this->form	= $this->get('Form');
 
         /* Parameter aus dem item in ein Array umwandeln */
         $params = new JRegistry();
