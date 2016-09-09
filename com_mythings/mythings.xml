@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="2.5.0" method="upgrade">
+<extension type="component" version="3.1.0" method="upgrade">
 	<name>com_mythings</name>
-	<creationDate>Juli 2012</creationDate>
-	<copyright>(c)2012 chmst.de - All rights reserved</copyright>
-	<authorUrl>chmst.de</authorUrl>
+	<creationDate>October 2013</creationDate>
 	<license>GNU/GPL</license>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>COM_MYTHINGS_XML_DESCRIPTION</description>
 
 	<!-- SQL-Skript zum Anlegen der Komponenten-Tabelle(n) und den Beispieldaten -->
@@ -24,27 +22,12 @@
 		</sql>
 	</uninstall>
 
-	<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
-	<files folder="site">
-		<filename>mythings.php</filename>
-		<filename>controller.php</filename>
-		<folder>controllers</folder>
-		<folder>language</folder>
-		<folder>models</folder>
-		<folder>views</folder>
-	</files>
-
-	<languages folder="site">
-		<language tag="en-GB">language/en-GB/en-GB.com_mythings.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.com_mythings.ini</language>
-	</languages>
-
 	<administration>
 		<!-- Einträge im Admin-Menü -->
 		<menu img="components/com_mythings/images/mythings-16.png">COM_MYTHINGS</menu>
 		<submenu>
 			<menu link="option=com_categories&amp;extension=com_mythings"
-				view="categories" alt="MyThings/Categories">JCATEGORIES</menu>
+				view="categories" alt="My Things/Categories">JCATEGORIES</menu>
 		</submenu>
 
 		<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
@@ -71,5 +54,20 @@
 			<language tag="en-GB">language/en-GB/en-GB.com_mythings.sys.ini</language>
 		</languages>
 	</administration>
+	
+	
+		<!-- Alle Ordner und Hauptdateien die (beim Deinstallieren) zu entfernen sind -->
+	<files folder="site">
+		<filename>mythings.php</filename>
+		<filename>controller.php</filename>
+		<folder>language</folder>
+		<folder>controllers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_mythings.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.com_mythings.ini</language>
+	</languages>
 
 </extension>

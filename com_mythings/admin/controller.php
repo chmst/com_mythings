@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Allgemeiner Controller der Komponente mythings
  *
@@ -10,7 +10,6 @@
  * @license    GNU/GPL
  */
 defined('_JEXEC') or die;
-JLoader::import('joomla.application.component.controller');
 
 /* helperklasse dem JLoader melden, bei Bedarf wird sie schell geladen */
 JLoader::register('MyThingsHelper', JPATH_COMPONENT . '/helpers/mythings.php');
@@ -18,7 +17,7 @@ JLoader::register('MyThingsHelper', JPATH_COMPONENT . '/helpers/mythings.php');
 /**
  * Erweiterung der Basisklasse JController
  */
-class MyThingsController extends JController
+class MyThingsController extends JControllerLegacy
 {
 	/**
 	 * @var string Standardview

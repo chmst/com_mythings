@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Helperklasse für die Komponente mythings
  *

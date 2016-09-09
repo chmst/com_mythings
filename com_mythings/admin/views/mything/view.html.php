@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * View Mything - Formularansicht zur Bearbeitung eines Items
  * @package    MyThings
@@ -10,13 +10,10 @@
  */
 defined('_JEXEC') or die;
 
-/* Import der Basisklasse JView */
-jimport('joomla.application.component.view');
-
 /**
  * Erweiterung der Basisklasse JView
  */
-class MyThingsViewMyThing extends JView
+class MyThingsViewMyThing extends JViewLegacy
 {
    /**
     * Der Datensatz, der angezeigt bzw. bearbeitet wird
@@ -47,11 +44,11 @@ class MyThingsViewMyThing extends JView
 		/* Bei Änderung: Der Datensatz wird aus der Datenbank geholt*/
 		$this->item = $this->get('Item');
 
-        /* Fehler abfangen, die beim Aufbau der View aufgetreten sind  */
-        if (count($errors = $this->get('Errors'))) {
-            JError::raiseError(500, implode('/n', $errors));
-        }
-
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors));
+		}
+		
 		/* Aufruf der Funktion für die Toolbar*/
 		$this->addToolbar();
 

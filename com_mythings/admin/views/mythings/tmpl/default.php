@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Das HTML-Layout zur tabellarischen MyThings-Übersicht
  *
@@ -12,7 +12,8 @@
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.tooltip');
-JHtml::_('behavior.multiselect');
+JHtml::_('dropdown.init');
+JHtml::_('formbehavior.chosen', 'select');
 
 $nullDate = JFactory::getDbo()->getNullDate();
 
@@ -23,29 +24,58 @@ $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_mythings&view=mythings'); ?>"
-	method="post" name="adminForm" id="adminForm">
-	<fieldset id="filter-bar">
-		<div class="filter-search fltlft">
-			<label class="filter-search-lbl">
-				<?php echo JText::_('JSEARCH_FILTER_LABEL'); ?>
-			</label>
-			<input type="text" name="filter_search" id="filter_search"
-			       value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
-			       title="<?php echo JText::_('COM_MYTHINGS_SEARCH'); ?>"/>
-			<button type="submit"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
-			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();">
-				<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>
-			</button>
+<form action="<?php echo JRoute::_('index.php?option=com_mythings&view=mythings'); ?>" method="post" name="adminForm" id="adminForm">
+
+<?php if (!empty($this->sidebar)) : ?>
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+<?php else : ?>
+	<div id="j-main-container" class="span12">
+<?php endif; ?>
+
+		<div id="filter-bar" class="btn-toolbar">
+			<div class="filter-search btn-group pull-left">
+				<label for="filter_search" class="element-invisible">
+					<?php echo JText::_('COM_MYTHINGS_SEARCH');?>
+				</label>
+				<input type="text" name="filter_search" id="filter_search"
+					   placeholder="<?php echo JText::_('COM_MYTHINGS_SEARCH'); ?>"
+					   value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
+					   title="<?php echo JText::_('COM_KANDANDAEVENTS_SEARCH_IN_TITLE'); ?>"
+					   />
+			</div>
+			<div class="btn-group pull-left">
+				<button class="btn hasTooltip"
+						type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>">
+					<i class="icon-search"></i>
+				</button>
+				<button class="btn hasTooltip"
+						type="button" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"
+						onclick="document.id('filter_search').value='';this.form.submit();">
+					<i class="icon-remove"></i>
+				</button>
+			</div>
+			<div class="btn-group pull-right hidden-phone">
+				<label for="limit" class="element-invisible">
+					<?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?>
+				</label>
+				<?php echo $this->pagination->getLimitBox(); ?>
+			</div>
 		</div>
-	</fieldset>
+		<div class="clearfix"> </div>
+
 	<div class="clr"></div>
-	<table class="adminlist">
+	<table class="table table-striped">
 		<thead>
 		<tr>
-			<th width="10">
-				<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)"/>
-			</th>
+					<th width="1%" class="center hidden-phone">
+						<input type="checkbox" name="checkall-toggle"
+							   value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>"
+							   onclick="Joomla.checkAll(this)"
+							   />
+					</th>
 			<th><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_TITLE', 'title', $listDirn, $listOrder); ?></th>
 			<th width="20%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_OWNER', 'owner', $listDirn, $listOrder); ?></th>
 			<th width="20%"><?php echo JHtml::_('grid.sort', 'COM_MYTHINGS_CAT', 'category', $listDirn, $listOrder); ?>

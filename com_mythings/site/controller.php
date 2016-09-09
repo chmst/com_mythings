@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Controller: steuert den Dialog
  *
@@ -14,5 +14,5 @@ defined('_JEXEC') or die;
 /**
  * Der Controller MyThingsController erbt alles von JController
  */
-class MyThingsController extends JController
+class MyThingsController extends JControllerLegacy
 { }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Einstiegspunkt im Frontend
  * @package    	Frontend
@@ -9,10 +9,9 @@
  * @license	    GNU/GPL
  */
 defined('_JEXEC') or die;
-jimport('joomla.application.component.controller');
 
 /* Einstieg in die Komponente - MyThingsController instanziieren */
-$controller	= JController::getInstance('mythings');
+$controller	= JControllerLegacy::getInstance('mythings');
 
 /* Eingabe des Applikationsobjekts besorgen */
 $input = JFactory::getApplication()->input;

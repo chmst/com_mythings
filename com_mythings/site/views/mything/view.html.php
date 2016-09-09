@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Detailansicht von com_mythings im Frontend.
  *
@@ -11,20 +11,17 @@
  */
 defined('_JEXEC') or die;
 
-/*/* Import der Basisklasse JView */
-jimport('joomla.application.component.view');
-
 /**
  * Erweiterung der Basisklasse JView zur Anzeige der Detailansicht
  */
-class MyThingsViewMyThing extends JView
+class MyThingsViewMyThing extends JViewLegacy
 {
 	/* Der Datensatz */
     protected $item;
 
     /* Die Parameter */
     protected $params;
-    
+
     /* Für den Ausleihvorgang: form */
     protected $form;
 
@@ -38,7 +35,7 @@ class MyThingsViewMyThing extends JView
     {
         /* getItem() aus JModelList aufrufen */
         $this->item	= $this->get('Item');
-        
+
         /* getForm() aus JModelForm aufrufen */
         $this->form	= $this->get('Form');
 
@@ -60,9 +57,10 @@ class MyThingsViewMyThing extends JView
         $this->params = $temp;
 
         /* Fehler abfangen, duie beim Aufbau der View aufgetreten sind  */
-        if (count($errors = $this->get('Errors'))) {
-            JError::raise(500, implode('/n', $errors));
-        }
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors));
+		}
 
         /* Triggern des Event onMythingDisplay */
         JPluginHelper::importPlugin('mythings');

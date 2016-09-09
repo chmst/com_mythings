@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Controller für die View MyThing (Formular)
  *
@@ -10,7 +10,6 @@
  * @license    GNU/GPL
  */
 defined('_JEXEC') or die;
-jimport('joomla.application.component.controllerform');
 
 /**
  * Der Controller MyThingsController erbt alles von JController

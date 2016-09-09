@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Detail-Layout für das Frontend. Ausgabe als HTML-Tabelle.
  *
@@ -35,24 +35,24 @@ $nullDate = JFactory::getDbo()->getNullDate();
 <table>
     <tr>
         <td><?php echo JText::_('COM_MYTHINGS_STATE'); ?></td>
-        <td><?php 
+        <td><?php
 		switch ($item->state) {
 	    case '0':
 	    	echo JText::_('COM_MYTHINGS_STATE_NEW');
 	    break;
-	
+
 	    case '1':
 	    	echo JText::_('COM_MYTHINGS_STATE_GOOD');
 	    break;
-	
+
 	    case '2':
 	    	echo JText::_('COM_MYTHINGS_STATE_USED');
 	    break;
-	
+
 	    case '3':
 	    	echo JText::_('COM_MYTHINGS_STATE_SCRAPE');
 	    break;
-	
+
 	    default:
 	    	echo JText::_('COM_MYTHINGS_STATE_UNKOWN');
 	    break;
@@ -78,14 +78,24 @@ $nullDate = JFactory::getDbo()->getNullDate();
 	if ($item->lent_from == $nullDate)  {
 	if ($user->authorise('mything.lend', 'com_mythings.mything.' . (int) $item->id) ) {?>
 		<form id="lend" action="<?php echo JRoute::_('index.php?option=com_mythings'); ?>" method="post" >
-			<fieldset>
-				<dl>
-				<?php foreach ($this->form->getFieldset('mythings-lend') as $field) : ?>
-					<dt><?php echo $field->label; ?></dt>
-					<dd><?php echo $field->input; ?></dd>
-				<?php endforeach; ?>
-				</dl>
-			</fieldset>
+
+			<div class="control-group">
+				<div class="control-label">
+					<?php echo $this->form->getLabel('lent_from'); ?>
+				</div>
+				<div class="controls">
+					<?php echo $this->form->getInput('lent_from'); ?>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">
+					<?php echo $this->form->getLabel('lent_to'); ?>
+				</div>
+				<div class="controls">
+					<?php echo $this->form->getInput('lent_to'); ?>
+				</div>
+			</div>
 
 			<button  type="submit"><?php echo JText::_('COM_MYTHINGS_BUTTON_LEND'); ?></button>
 			<input type="hidden" name="task" value="mything.lend" />

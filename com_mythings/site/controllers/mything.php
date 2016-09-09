@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Controller für das Formular MyThing
  *
@@ -40,7 +40,7 @@ class MyThingsControllerMyThing extends JControllerForm
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		/* Die Eingaben ins Formular stehen im Inputbereich */
-		$input = JFactory::getApplication()->get('input');
+		$input = JFactory::getApplication()->'input';
 
 		/* Die Eingaben als Array aus jform des Input-Bereichs holen */
 		$data = $input->get('jform', array(), 'post', 'array');

@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * HTML-Formular zum Anlegen und Bearbeiten eines Datensatzes.
  *
@@ -19,96 +19,66 @@ JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_mythings&id='.(int) $this->item->id); ?>"
-	method="post" name="adminForm" id="mything-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_mythings'
+		. (!empty($this->item->id) ? '&id=' . (int) $this->item->id : '')
+	) ?>"
+		method="post"
+		name="adminForm"
+		id="adminForm"
+		class="form-validate">
+<div class="span10 row-fluid form-horizontal">
+	<div class="row-fluid">
 
-<div class="width-60 fltlft">
-    <fieldset class="adminform">
-        <legend><?php echo JText::_('COM_MYTHINGS_DATA_SET'); ?></legend>
-        <ul class="adminformlist">
-            <li>
-            <?php echo $this->form->getLabel('title'); ?>
-            <?php echo $this->form->getInput('title'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('owner_id'); ?>
-            <?php echo $this->form->getInput('owner_id'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('category_id'); ?>
-            <?php echo $this->form->getInput('category_id'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('state'); ?>
-            <?php echo $this->form->getInput('state'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('value'); ?>
-            <?php echo $this->form->getInput('value'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('weight'); ?>
-            <?php echo $this->form->getInput('weight'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('img'); ?>
-            <?php echo $this->form->getInput('img'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('description'); ?>
-            <div class="clr"></div>
-            <?php echo $this->form->getInput('description'); ?>
-            </li>
-        </ul>
-    </fieldset>
-</div>
+		<div id="j-main-container" class="span10">
 
-<div class="width-40 fltrt">
-<?php echo JHtml::_('sliders.start', 'lent-data'); ?>
-<?php echo JHtml::_('sliders.panel',JText::_('COM_MYTHINGS_LENT_DATA'), 'lent-details'); ?>
-	<fieldset class="panelform">
-    	<ul class="adminformlist">
-            <li>
-            <?php echo $this->form->getLabel('lent_from'); ?>
-            <?php echo $this->form->getInput('lent_from'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('lent_to'); ?>
-            <?php echo $this->form->getInput('lent_to'); ?>
-            </li>
-            <li>
-            <?php echo $this->form->getLabel('lent_by_id'); ?>
-            <?php echo $this->form->getInput('lent_by_id'); ?>
-            </li>
-    	</ul>
-	</fieldset>
+		<fieldset>
+			<legend><?php echo JText::_('COM_MYTHINGS_DATA_SET'); ?></legend>
+			<?php echo JHtml::_('bootstrap.startTabSet', 'mtTab', array('active' => 'data')); ?>
 
-    <?php echo JHtml::_('sliders.panel',JText::_('COM_MYTHINGS_CONFIGURATION'), 'params'); ?>
-    <fieldset class="panelform">
-    <ul class="adminformlist">
-        <?php foreach ($this->form->getFieldset('detail_layout') as $field) : ?>
-            <li>
-            <?php echo $field->label; ?>
-            <?php echo $field->input; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    </fieldset>
-</div>
-<?php echo JHtml::_('sliders.end'); ?>
-<div class="clr"></div>
+			<?php echo JHtml::_('bootstrap.addTab', 'mtTab', 'data', JText::_('COM_MYTHINGS_DATA_SET', true)); ?>
+			<fieldset>
+				<div class="form-horizontal pull-left ">
+					<?php foreach ($this->form->getFieldset('mythings-data') as $field) : ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $field->label; ?>
+							</div>
+							<div class="controls">
+								<?php echo $field->input; ?>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</fieldset>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-<div class="width-100 fltlft">
-   <?php echo JHtml::_('sliders.panel',JText::_('COM_MYTHINGS_ACCESS'), 'mythings-access'); ?>
-    <fieldset class="panelform">
-        <?php echo $this->form->getLabel('rules'); ?>
-        <?php echo $this->form->getInput('rules'); ?>
-    </fieldset>
-</div>
+			<?php echo JHtml::_('bootstrap.addTab', 'mtTab', 'params', JText::_('COM_MYTHINGS_PARAMS', false)); ?>
+			<fieldset>
+				<div class="form-horizontal pull-left ">
+					<?php foreach ($this->form->getFieldset('detail_layout') as $field) : ?>
+						<div class="control-group">
+							<div class="control-label">
+								<?php echo $field->label; ?>
+							</div>
+							<div class="controls">
+								<?php echo $field->input; ?>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</fieldset>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-<?php echo JHtml::_('sliders.end'); ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'mtTab', 'access', JText::_('COM_MYTHINGS_ACCESS', false)); ?>
 
-<input type="hidden" name="task" value="" />
-<?php echo JHtml::_('form.token'); ?>
+					<?php echo $this->form->getInput('rules'); ?>
+
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+
+			<input type="hidden" name="task" value="" />
+			<?php echo JHtml::_('form.token'); ?>
+
 
 </form>

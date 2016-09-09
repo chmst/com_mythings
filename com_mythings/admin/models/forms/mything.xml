@@ -11,7 +11,6 @@
     <field
         name="title"
         type="text"
-        class="inputbox"
         label="COM_MYTHINGS_TITLE_LABEL"
         description="COM_MYTHINGS_TITLE_DESC"
         required="true" />
@@ -25,16 +24,16 @@
         name="category_id"
         type="category"
         extension="com_mythings"
-        class="inputbox"
         label="COM_MYTHINGS_CAT_LABEL"
         description="COM_MYTHINGS_CAT_DESC" />
 
     <field
         name="state"
         type="radio"
+		class="btn-group"
         label="COM_MYTHINGS_STATE_LABEL"
 		description="COM_MYTHINGS_STATE_DESC"
-        default="0" class="inputbox" >
+        default="0"  >
         <option value="0">COM_MYTHINGS_STATE_NEW</option>
         <option value="1">COM_MYTHINGS_STATE_GOOD</option>
         <option value="2">COM_MYTHINGS_STATE_USED</option>
@@ -44,7 +43,6 @@
     <field
         name="value"
         type="text"
-        class="inputbox"
         label="COM_MYTHINGS_VALUE_LABEL"
         description="COM_MYTHINGS_VALUE_DESC"
         size="20" />
@@ -65,16 +63,13 @@
     <field
         name="description"
         type="editor"
-        class="inputbox"
         label="COM_MYTHINGS_TEXT_LABEL"
         description="COM_MYTHINGS_TEXT_DESC"
         filter="JComponentHelper::filterText"
         buttons="false"
         hide="readmore,pagebreak"
         />
-</fieldset>
 
-<fieldset name="mythings-lent">
     <field
         name="lent_from"
         type="calendar"
@@ -99,12 +94,13 @@
         size="20" />
 </fieldset>
 
-<fields name="params">
+<fields name="mythings-params">
     <fieldset
 	name="detail_layout"
     label="COM_MYTHINGS_DETAIL_LAYOUT_OPTIONS" >
         <field name="value"
-            type="list"
+            type="radio"
+			class="btn-group"
             label="COM_MYTHINGS_VALUE_LABEL"
 			>
             <option value="">JGLOBAL_USE_GLOBAL</option>
@@ -112,7 +108,8 @@
             <option value="1">JSHOW</option>
         </field>
         <field name="weight"
-            type="list"
+            type="radio"
+			class="btn-group"
             label="COM_MYTHINGS_WEIGHT_LABEL"
 			>
             <option value="">JGLOBAL_USE_GLOBAL</option>
@@ -131,10 +128,9 @@
         <field
             name="rules"
             type="rules"
-            label="JFIELD_RULES_LABEL"
+            label="COM_MYTHINGS_ACCESS"
             validate="rules"
 			filter="rules"
-            class="inputbox"
             component="com_mythings"
             section="mythings" />
     </fieldset>

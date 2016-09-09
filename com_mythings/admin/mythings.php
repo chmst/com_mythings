@@ -1,6 +1,6 @@
 <?php
 /**
- * Joomla! 2.5 - Erweiterungen programmieren
+ * Joomla 2.5 - Erweiterungen programmieren - angepasst an Joomla 3.0
  *
  * Einstiegspunkt im Backend
  *
@@ -10,8 +10,6 @@
  * @license	   GNU/GPL
  */
 defined('_JEXEC') or die;
-JLoader::import('joomla.application.component.controller');
-
 
 /* Nur Benutzer mit der Berechtigung 'manage' dürfen zugreifen */
 if (!JFactory::getUser()->authorise('core.manage', 'com_mythings')) {
@@ -19,7 +17,7 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_mythings')) {
 }
 
 /* Einstieg in die Komponente - MyThingsController instanziieren */
-$controller	= JController::getInstance('mythings');
+$controller	= JControllerLegacy::getInstance('mythings');
 
 /* Das Anwendungsobjekt holen  */
 $app = JFactory::getApplication();

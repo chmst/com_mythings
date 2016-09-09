@@ -28,6 +28,6 @@
 
     <section name="mythings">
         <action name="mything.lend" title="COM_MYTHINGS_ACCESS_LEND"
-                description=" COM_MYTHINGS_ACCESS_LEND_DESC" />
+                description="COM_MYTHINGS_ACCESS_LEND_DESC" />
     </section>
 </access>
